@@ -82,10 +82,11 @@ void TwistMux::init()
   lock_hs_ = std::make_shared<lock_topic_container>();
   getTopicHandles("topics", *velocity_hs_);
   getTopicHandles("locks", *lock_hs_);
+  //fetch_param(this, "use_stamped", use_stamped_);
 
   /// Publisher for output topic:
   cmd_pub_ =
-    this->create_publisher<geometry_msgs::msg::Twist>(
+    this->create_publisher<geometry_msgs::msg::TwistStamped>(
     "cmd_vel_out",
     rclcpp::QoS(rclcpp::KeepLast(1)));
 
@@ -107,7 +108,12 @@ void TwistMux::updateDiagnostics()
   diagnostics_->updateStatus(status_);
 }
 
-void TwistMux::publishTwist(const geometry_msgs::msg::Twist::ConstSharedPtr & msg)
+// void TwistMux::publishTwist(const geometry_msgs::msg::Twist::ConstSharedPtr & msg)
+// {
+//   cmd_pub_->publish(*msg);
+// }
+
+void TwistMux::publishTwistStamped(const geometry_msgs::msg::TwistStamped::ConstSharedPtr & msg)
 {
   cmd_pub_->publish(*msg);
 }
@@ -165,7 +171,7 @@ int TwistMux::getLockPriority()
   return priority;
 }
 
-bool TwistMux::hasPriority(const VelocityTopicHandle & twist)
+bool TwistMux::hasPriority(const VelocityStampedTopicHandle & twist)
 {
   const auto lock_priority = getLockPriority();
 
@@ -185,6 +191,11 @@ bool TwistMux::hasPriority(const VelocityTopicHandle & twist)
   }
 
   return twist.getName() == velocity_name;
+}
+
+bool TwistMux::isStamped()
+{
+  return use_stamped_;
 }
 
 }  // namespace twist_mux
