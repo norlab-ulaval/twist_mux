@@ -1,0 +1,35 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/jean-michel/ros/workspaces/humble_ws/install/twist_mux/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/kindr_msgs/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/audio_common_msgs/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/tcp_tunnel/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/sound_play/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/norlab_icp_mapper_ros/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/norlab_controllers_msgs/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/libpointmatcher_ros/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/install/kindr_ros/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/src/audio_common/sound_play/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/src/elevation_mapping_ros2/elevation_mapping/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/src/kindr_ros/kindr_ros/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/src/libpointmatcher_ros/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/src/norlab_traversability/include/**",
+        "/home/jean-michel/ros/workspaces/humble_ws/src/twist_mux/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

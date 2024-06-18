@@ -51,7 +51,7 @@ namespace twist_mux
 // Forwarding declarations:
 class TwistMuxDiagnostics;
 struct TwistMuxDiagnosticsStatus;
-class VelocityStampedTopicHandle;
+class VelocityTopicHandle;
 class LockTopicHandle;
 
 /**
@@ -64,7 +64,7 @@ public:
   template<typename T>
   using handle_container = std::list<T>;
 
-  using velocity_topic_container = handle_container<VelocityStampedTopicHandle>;
+  using velocity_topic_container = handle_container<VelocityTopicHandle>;
   using lock_topic_container = handle_container<LockTopicHandle>;
 
   TwistMux();
@@ -72,15 +72,11 @@ public:
 
   void init();
 
-  bool hasPriority(const VelocityStampedTopicHandle & twist);
+  bool hasPriority(const VelocityTopicHandle & twist);
 
-  // void publishTwist(const geometry_msgs::msg::Twist::ConstSharedPtr & msg);
-
-  void publishTwistStamped(const geometry_msgs::msg::TwistStamped::ConstSharedPtr & msg);
+  void publishTwist(const geometry_msgs::msg::TwistStamped::ConstSharedPtr & msg);
 
   void updateDiagnostics();
-
-  bool isStamped();
 
 protected:
   typedef TwistMuxDiagnostics diagnostics_type;
@@ -110,8 +106,6 @@ protected:
 
   std::shared_ptr<diagnostics_type> diagnostics_;
   std::shared_ptr<status_type> status_;
-
-  bool use_stamped_;
 };
 
 }  // namespace twist_mux

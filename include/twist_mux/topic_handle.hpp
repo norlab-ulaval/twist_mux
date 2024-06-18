@@ -154,54 +154,8 @@ protected:
   T msg_;
 };
 
-// class VelocityTopicHandle : public TopicHandle_<geometry_msgs::msg::Twist>
-// {
-// private:
-//   typedef TopicHandle_<geometry_msgs::msg::Twist> base_type;
 
-//   // https://index.ros.org/doc/ros2/About-Quality-of-Service-Settings
-//   // rmw_qos_profile_t twist_qos_profile = rmw_qos_profile_sensor_data;
-
-// public:
-//   typedef typename base_type::priority_type priority_type;
-
-//   VelocityTopicHandle(
-//     const std::string & name, const std::string & topic, const rclcpp::Duration & timeout,
-//     priority_type priority, TwistMux * mux)
-//   : base_type(name, topic, timeout, priority, mux)
-//   {
-//     subscriber_ = mux_->create_subscription<geometry_msgs::msg::Twist>(
-//       topic_, rclcpp::SystemDefaultsQoS(),
-//       std::bind(&VelocityTopicHandle::callback, this, std::placeholders::_1));
-
-//     // subscriber_ = nh_.create_subscription<geometry_msgs::msg::Twist>(
-//     //    topic_, twist_qos_profile,
-//     //  std::bind(&VelocityTopicHandle::callback, this, std::placeholders::_1));
-//   }
-
-//   bool isMasked(priority_type lock_priority) const
-//   {
-//     // std::cout << hasExpired() << " / " << (getPriority() < lock_priority) << std::endl;
-//     return hasExpired() || (getPriority() < lock_priority);
-//   }
-
-//   void callback(const geometry_msgs::msg::Twist::ConstSharedPtr msg)
-//   {
-//     stamp_ = mux_->now();
-//     msg_ = *msg;
-
-//     // Check if this twist has priority.
-//     // Note that we have to check all the locks because they might time out
-//     // and since we have several topics we must look for the highest one in
-//     // all the topic list; so far there's no O(1) solution.
-//     if (mux_->hasPriority(*this)) {
-//       mux_->publishTwist(msg);
-//     }
-//   }
-// };
-
-
-class VelocityStampedTopicHandle : public TopicHandle_<geometry_msgs::msg::TwistStamped>
+class VelocityTopicHandle : public TopicHandle_<geometry_msgs::msg::TwistStamped>
 {
 private:
   typedef TopicHandle_<geometry_msgs::msg::TwistStamped> base_type;
@@ -212,14 +166,14 @@ private:
 public:
   typedef typename base_type::priority_type priority_type;
 
-  VelocityStampedTopicHandle(
+  VelocityTopicHandle(
     const std::string & name, const std::string & topic, const rclcpp::Duration & timeout,
     priority_type priority, TwistMux * mux)
   : base_type(name, topic, timeout, priority, mux)
   {
     subscriber_ = mux_->create_subscription<geometry_msgs::msg::TwistStamped>(
       topic_, rclcpp::SystemDefaultsQoS(),
-      std::bind(&VelocityStampedTopicHandle::callback, this, std::placeholders::_1));
+      std::bind(&VelocityTopicHandle::callback, this, std::placeholders::_1));
   }
 
   bool isMasked(priority_type lock_priority) const
@@ -238,7 +192,7 @@ public:
     // and since we have several topics we must look for the highest one in
     // all the topic list; so far there's no O(1) solution.
     if (mux_->hasPriority(*this)) {
-      mux_->publishTwistStamped(msg);
+      mux_->publishTwist(msg);
     }
   }
 };
